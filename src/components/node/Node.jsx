@@ -1,6 +1,6 @@
 import "./node.css";
 
-export default function Node({ type, isVisited }) {
+export default function Node({ type, isVisited, handleClick }) {
   let className = "node-root";
   if (type === 1) {
     className += " start-node";
@@ -10,5 +10,5 @@ export default function Node({ type, isVisited }) {
   if (isVisited) {
     className += " visited-node";
   }
-  return <div className={className}></div>;
+  return <div className={className} onClick={handleClick}></div>;
 }

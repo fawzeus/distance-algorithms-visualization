@@ -8,10 +8,15 @@ const Grid = () => {
   const [r, setR] = useState(0);
   const [c, setC] = useState(0);
   const [selectStartIsClicked, setSelectStartIsClicked] = useState(false);
+  const [startRow, setStartRow] = useState(null);
+  const [startColumn, setStartColumn] = useState(null);
+  const [selectTargetIsClicked, setSelectTargetIsClicked] = useState(false);
+  const [targetRow, setTargetRow] = useState(null);
+  const [targetColumn, setTargetColumn] = useState(null);
 
   function handleVisualizeCkick() {
     const copy = copyGrid(grid, rows, columns);
-    console.log(r, c);
+    //console.log(r, c);
     copy[r][c].isVisited = true;
     setC(c + 1);
     if (c + 1 === columns) {
@@ -26,24 +31,62 @@ const Grid = () => {
   }
 
   function handleSelectStartClick() {
+    setSelectTargetIsClicked(false);
     setSelectStartIsClicked(!selectStartIsClicked);
-    console.log(selectStartIsClicked);
+    //console.log(selectStartIsClicked);
+  }
+  function handleSelectTargetClick() {
+    setSelectStartIsClicked(false);
+    setSelectTargetIsClicked(!selectTargetIsClicked);
+    //console.log(selectTargetIsClicked);
+  }
+
+  function handleNodeClick(r, c) {
+    const copy = copyGrid(grid, rows, columns);
+    if (selectStartIsClicked) {
+      if (startColumn != null && startRow != null) {
+        copy[startRow][startColumn].type = 0;
+      }
+      setStartRow(r);
+      setStartColumn(c);
+      copy[r][c].type = 1;
+    } else if (selectTargetIsClicked) {
+      if (targetColumn != null && targetRow != null) {
+        copy[targetRow][targetColumn].type = 0;
+      }
+      setTargetRow(r);
+      setTargetColumn(c);
+      copy[r][c].type = 2;
+    }
+    setGrid(copy);
   }
 
   return (
     <div className="grid-container">
       <div className="topbar">
         <button
-          className="select-start"
+          className={
+            "button select-start" + (selectStartIsClicked ? " active-btn" : "")
+          }
           onClick={() => {
             handleSelectStartClick();
           }}
         >
           Select Start
         </button>
-        <button className="select-target">select Target</button>
         <button
-          className="dijkstra-btn"
+          className={
+            "button select-target" +
+            (selectTargetIsClicked ? " active-btn" : "")
+          }
+          onClick={() => {
+            handleSelectTargetClick();
+          }}
+        >
+          select Target
+        </button>
+        <button
+          className="button dijkstra-btn"
           onClick={() => {
             handleVisualizeCkick();
           }}
@@ -59,6 +102,9 @@ const Grid = () => {
                 key={nodeIndex}
                 type={node.type}
                 isVisited={node.isVisited}
+                handleClick={() => {
+                  handleNodeClick(rowIndex, nodeIndex);
+                }}
               />
             ))}
           </div>
@@ -81,8 +127,7 @@ function initGrid(rows, columns) {
     }
     grid.push(row);
   }
-  grid[10][12].type = 1;
-  grid[18][48].type = 2;
+
   return grid;
 }
 
