@@ -1,0 +1,13 @@
+.grid {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 5%;
+}
+.grid-row {
+  display: flex;
+}
+.topbar {
+  display: flex;
+  justify-content: space-around;
+}

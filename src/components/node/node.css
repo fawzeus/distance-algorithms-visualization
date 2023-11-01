@@ -1,0 +1,15 @@
+.node-root {
+  height: 25px;
+  width: 25px;
+  margin: 0%;
+  outline: 1px solid grey;
+}
+.visited-node {
+  background-color: blue;
+}
+.start-node {
+  background-color: green;
+}
+.finish-node {
+  background-color: red;
+}
