@@ -6,9 +6,6 @@ export default function Node({
   handleClick,
   isOnPath,
   isAWall,
-  onMouseDown,
-  onMouseUp,
-  onMouseEnter,
 }) {
   let className = "node-root";
   if (type === 1) {
@@ -25,13 +22,5 @@ export default function Node({
   if (isAWall) {
     className += " wall-node";
   }
-  return (
-    <div
-      className={className}
-      onClick={handleClick}
-      onMouseDown={() => onMouseDown()}
-      onMouseEnter={() => onMouseEnter()}
-      onMouseUp={() => onMouseUp()}
-    ></div>
-  );
+  return <div className={className} onClick={handleClick}></div>;
 }
