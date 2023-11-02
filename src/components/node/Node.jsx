@@ -1,6 +1,15 @@
 import "./node.css";
 
-export default function Node({ type, isVisited, handleClick }) {
+export default function Node({
+  type,
+  isVisited,
+  handleClick,
+  isOnPath,
+  isAWall,
+  onMouseDown,
+  onMouseUp,
+  onMouseEnter,
+}) {
   let className = "node-root";
   if (type === 1) {
     className += " start-node";
@@ -10,5 +19,19 @@ export default function Node({ type, isVisited, handleClick }) {
   if (isVisited) {
     className += " visited-node";
   }
-  return <div className={className} onClick={handleClick}></div>;
+  if (isOnPath) {
+    className += " path-node";
+  }
+  if (isAWall) {
+    className += " wall-node";
+  }
+  return (
+    <div
+      className={className}
+      onClick={handleClick}
+      onMouseDown={() => onMouseDown()}
+      onMouseEnter={() => onMouseEnter()}
+      onMouseUp={() => onMouseUp()}
+    ></div>
+  );
 }

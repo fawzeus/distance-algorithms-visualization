@@ -13,3 +13,9 @@
 .finish-node {
   background-color: red;
 }
+.path-node {
+  background-color: yellow;
+}
+.wall-node {
+  background-color: black;
+}
