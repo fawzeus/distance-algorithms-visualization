@@ -16,7 +16,7 @@ const Grid = () => {
   const [targetRow, setTargetRow] = useState(null);
   const [targetColumn, setTargetColumn] = useState(null);
   const [addWallIsClicked, setAddwallIsClicked] = useState(false);
-  const [moseIsClicked, setMouseIsClicked] = useState(false);
+  const [mouseIsClicked, setMouseIsClicked] = useState(false);
 
   function animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
     for (let i = 0; i < visitedNodesInOrder.length; i++) {
@@ -109,6 +109,28 @@ const Grid = () => {
     setGrid(copy);
   }
 
+  function handleMouseUp() {
+    setMouseIsClicked(false);
+  }
+  function handleMouseDown() {
+    setMouseIsClicked(true);
+  }
+  function handleMouseEnter(r, c) {
+    if (!mouseIsClicked || !addWallIsClicked) {
+      return;
+    }
+    const copy = copyGrid(grid, rows, columns);
+    const state = copy[r][c].isWall;
+    copy[r][c].isWall = !state;
+    setGrid(copy);
+  }
+  function handleDoubleClick(r, c) {
+    if (!addWallIsClicked) return;
+    const copy = copyGrid(grid, rows, columns);
+    copy[r][c].isWall = true;
+    setGrid(copy);
+  }
+
   function clearGrid() {
     setGrid(initGrid(rows, columns));
     setStartColumn(null);
@@ -178,6 +200,18 @@ const Grid = () => {
                 isVisited={node.markVisited}
                 isOnPath={node.isOnPath}
                 isAWall={node.isWall}
+                onMouseUp={() => {
+                  handleMouseUp();
+                }}
+                onMouseDown={() => {
+                  handleMouseDown();
+                }}
+                onMouseEnter={() => {
+                  handleMouseEnter(rowIndex, nodeIndex);
+                }}
+                onDoubleClick={() => {
+                  handleDoubleClick(rowIndex, nodeIndex);
+                }}
                 handleClick={() => {
                   handleNodeClick(rowIndex, nodeIndex);
                 }}
