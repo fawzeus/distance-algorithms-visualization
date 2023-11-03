@@ -17,6 +17,7 @@ const Grid = () => {
   const [targetColumn, setTargetColumn] = useState(null);
   const [addWallIsClicked, setAddwallIsClicked] = useState(false);
   const [mouseIsClicked, setMouseIsClicked] = useState(false);
+  const [isVisualized, setIsVisualized] = useState(false);
 
   function animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
     for (let i = 0; i < visitedNodesInOrder.length; i++) {
@@ -25,6 +26,9 @@ const Grid = () => {
         copy[visitedNodesInOrder[i].row][
           visitedNodesInOrder[i].col
         ].markVisited = true;
+        copy[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].value =
+          "X";
+
         setGrid(copy);
       }, 10 * i);
     }
@@ -53,6 +57,8 @@ const Grid = () => {
     ) {
       return;
     }
+    if (isVisualized) return;
+    setIsVisualized(true);
     const startNode = grid[startRow][startColumn];
     const finishNode = grid[targetRow][targetColumn];
     const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
@@ -62,24 +68,28 @@ const Grid = () => {
   }
 
   function handleSelectStartClick() {
+    if (isVisualized) return;
     setSelectTargetIsClicked(false);
     setAddwallIsClicked(false);
     setSelectStartIsClicked(!selectStartIsClicked);
     //console.log(selectStartIsClicked);
   }
   function handleSelectTargetClick() {
+    if (isVisualized) return;
     setSelectStartIsClicked(false);
     setAddwallIsClicked(false);
     setSelectTargetIsClicked(!selectTargetIsClicked);
     //console.log(selectTargetIsClicked);
   }
   function handleAddWall() {
+    if (isVisualized) return;
     setSelectTargetIsClicked(false);
     setSelectStartIsClicked(false);
     setAddwallIsClicked(!addWallIsClicked);
   }
 
   function handleNodeClick(r, c) {
+    if (isVisualized) return;
     const copy = copyGrid(grid, rows, columns);
     if (selectStartIsClicked) {
       if (copy[r][c].isWall) {
@@ -116,6 +126,7 @@ const Grid = () => {
     setMouseIsClicked(true);
   }
   function handleMouseEnter(r, c) {
+    if (isVisualized) return;
     if (!mouseIsClicked || !addWallIsClicked) {
       return;
     }
@@ -125,6 +136,7 @@ const Grid = () => {
     setGrid(copy);
   }
   function handleDoubleClick(r, c) {
+    if (isVisualized) return;
     if (!addWallIsClicked) return;
     const copy = copyGrid(grid, rows, columns);
     copy[r][c].isWall = true;
@@ -132,6 +144,7 @@ const Grid = () => {
   }
 
   function clearGrid() {
+    setIsVisualized(false);
     setGrid(initGrid(rows, columns));
     setStartColumn(null);
     setStartRow(null);
@@ -197,6 +210,7 @@ const Grid = () => {
               <Node
                 key={nodeIndex}
                 type={node.type}
+                value={node.value}
                 isVisited={node.markVisited}
                 isOnPath={node.isOnPath}
                 isAWall={node.isWall}
@@ -261,6 +275,7 @@ function createNode(row, col) {
     previousNode: null,
     markVisited: false,
     isOnPath: false,
+    value: "",
   };
 }
 

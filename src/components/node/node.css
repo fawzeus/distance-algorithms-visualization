@@ -2,7 +2,10 @@
   height: 25px;
   width: 25px;
   margin: 0%;
+  align-items: center;
   outline: 1px solid grey;
+  text-align: center;
+  font-weight: bolder;
 }
 .visited-node {
   background-color: blue;

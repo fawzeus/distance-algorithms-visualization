@@ -10,6 +10,7 @@ export default function Node({
   onMouseUp,
   onMouseEnter,
   onDoubleClick,
+  value,
 }) {
   let className = "node-root";
   if (type === 1) {
@@ -34,6 +35,8 @@ export default function Node({
       onMouseEnter={() => onMouseEnter()}
       onMouseUp={() => onMouseUp()}
       onDoubleClick={() => onDoubleClick()}
-    ></div>
+    >
+      {value}
+    </div>
   );
 }
