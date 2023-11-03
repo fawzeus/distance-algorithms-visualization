@@ -8,17 +8,30 @@
   display: flex;
   justify-content: center;
 }
+.cursor-node {
+  background-color: rgb(250, 250, 138);
+  box-shadow: 0px 0px 12px 5px lightblue;
+}
+.visited-node-1 {
+  border: 25px;
+  background-color: rgb(136, 0, 255);
+  border-radius: 50%;
+}
 .visited-node {
   background-color: rgb(0, 255, 255);
+  border-radius: 0%;
 }
 .start-node {
   background-color: green;
+  border-radius: 50%;
 }
 .finish-node {
   background-color: red;
+  border-radius: 50%;
 }
 .path-node {
   background-color: yellow;
+  border-radius: 0%;
 }
 .wall-node {
   background-color: black;

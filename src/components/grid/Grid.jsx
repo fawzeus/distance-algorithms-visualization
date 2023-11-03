@@ -20,21 +20,32 @@ const Grid = () => {
   const [isVisualized, setIsVisualized] = useState(false);
 
   function animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
+    const Speed = 20;
     for (let i = 0; i < visitedNodesInOrder.length; i++) {
+      let row = visitedNodesInOrder[i].row;
+      let col = visitedNodesInOrder[i].col;
       setTimeout(() => {
         const copy = copyGrid(grid, rows, columns);
-        copy[visitedNodesInOrder[i].row][
-          visitedNodesInOrder[i].col
-        ].markVisited = true;
-        copy[visitedNodesInOrder[i].row][visitedNodesInOrder[i].col].value =
-          "X";
+        copy[row][col].onCursor = true;
+      }, Speed * i);
+      setTimeout(() => {
+        const copy = copyGrid(grid, rows, columns);
+        copy[row][col].onCursor = false;
+      }, Speed * i + 100);
+      setTimeout(() => {
+        const copy = copyGrid(grid, rows, columns);
+        copy[row][col].isVisited_1 = true;
+      }, Speed * i + 1000);
+      setTimeout(() => {
+        const copy = copyGrid(grid, rows, columns);
+        copy[row][col].markVisited = true;
 
         setGrid(copy);
-      }, 10 * i);
+      }, Speed * i + 1500);
     }
     setTimeout(() => {
       animateShortestPath(nodesInShortestPathOrder);
-    }, (visitedNodesInOrder.length - 1) * 10);
+    }, (visitedNodesInOrder.length - 1) * Speed + 1500);
   }
 
   function animateShortestPath(nodesInShortestPathOrder) {
@@ -210,10 +221,11 @@ const Grid = () => {
               <Node
                 key={nodeIndex}
                 type={node.type}
-                value={node.value}
                 isVisited={node.markVisited}
                 isOnPath={node.isOnPath}
                 isAWall={node.isWall}
+                isVisited_1={node.isVisited_1}
+                onCursor={node.onCursor}
                 onMouseUp={() => {
                   handleMouseUp();
                 }}
@@ -275,7 +287,8 @@ function createNode(row, col) {
     previousNode: null,
     markVisited: false,
     isOnPath: false,
-    value: "",
+    isVisited_1: false,
+    onCursor: false,
   };
 }
 

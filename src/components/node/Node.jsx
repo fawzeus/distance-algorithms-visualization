@@ -6,11 +6,12 @@ export default function Node({
   handleClick,
   isOnPath,
   isAWall,
+  isVisited_1,
+  onCursor,
   onMouseDown,
   onMouseUp,
   onMouseEnter,
   onDoubleClick,
-  value,
 }) {
   let className = "node-root";
   if (type === 1) {
@@ -20,6 +21,10 @@ export default function Node({
   }
   if (isVisited) {
     className += " visited-node";
+  } else if (isVisited_1) {
+    className += " visited-node-1";
+  } else if (onCursor) {
+    className += " cursor-node";
   }
   if (isOnPath) {
     className += " path-node";
@@ -35,8 +40,6 @@ export default function Node({
       onMouseEnter={() => onMouseEnter()}
       onMouseUp={() => onMouseUp()}
       onDoubleClick={() => onDoubleClick()}
-    >
-      {value}
-    </div>
+    ></div>
   );
 }
