@@ -8,7 +8,7 @@
   font-weight: bolder;
 }
 .visited-node {
-  background-color: blue;
+  background-color: rgb(0, 255, 255);
 }
 .start-node {
   background-color: green;
