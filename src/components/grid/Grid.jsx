@@ -216,7 +216,6 @@ const Grid = () => {
                 isVisited={node.markVisited}
                 isOnPath={node.isOnPath}
                 isAWall={node.isWall}
-                isVisited_1={node.isVisited_1}
                 onCursor={node.onCursor}
                 onMouseUp={() => {
                   handleMouseUp();
@@ -279,7 +278,6 @@ function createNode(row, col) {
     previousNode: null,
     markVisited: false,
     isOnPath: false,
-    isVisited_1: false,
     onCursor: false,
   };
 }

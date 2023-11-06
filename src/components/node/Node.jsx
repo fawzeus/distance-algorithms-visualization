@@ -6,7 +6,6 @@ export default function Node({
   handleClick,
   isOnPath,
   isAWall,
-  isVisited_1,
   onCursor,
   onMouseDown,
   onMouseUp,
@@ -21,8 +20,6 @@ export default function Node({
   }
   if (isVisited) {
     className += " visited-node animation-node";
-  } else if (isVisited_1) {
-    className += " visited-node-1";
   } else if (onCursor) {
     className += " cursor-node";
   }
@@ -32,6 +29,12 @@ export default function Node({
   if (isAWall) {
     className += " wall-node";
   }
+  let value = "";
+  if (type === 1) {
+    value = ">";
+  } else if (type === 2) {
+    value = "?";
+  }
   return (
     <div
       className={className}
@@ -40,6 +43,8 @@ export default function Node({
       onMouseEnter={() => onMouseEnter()}
       onMouseUp={() => onMouseUp()}
       onDoubleClick={() => onDoubleClick()}
-    ></div>
+    >
+      {value}
+    </div>
   );
 }
