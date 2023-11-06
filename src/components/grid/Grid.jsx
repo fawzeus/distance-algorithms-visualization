@@ -20,32 +20,24 @@ const Grid = () => {
   const [isVisualized, setIsVisualized] = useState(false);
 
   function animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
-    const Speed = 20;
+    const Speed = 10;
     for (let i = 0; i < visitedNodesInOrder.length; i++) {
       let row = visitedNodesInOrder[i].row;
       let col = visitedNodesInOrder[i].col;
       setTimeout(() => {
         const copy = copyGrid(grid, rows, columns);
-        copy[row][col].onCursor = true;
-      }, Speed * i);
-      setTimeout(() => {
-        const copy = copyGrid(grid, rows, columns);
-        copy[row][col].onCursor = false;
-      }, Speed * i + 100);
-      setTimeout(() => {
-        const copy = copyGrid(grid, rows, columns);
         copy[row][col].isVisited_1 = true;
-      }, Speed * i + 1000);
+      }, Speed * i);
       setTimeout(() => {
         const copy = copyGrid(grid, rows, columns);
         copy[row][col].markVisited = true;
 
         setGrid(copy);
-      }, Speed * i + 1500);
+      }, Speed * i + 500);
     }
     setTimeout(() => {
       animateShortestPath(nodesInShortestPathOrder);
-    }, (visitedNodesInOrder.length - 1) * Speed + 1500);
+    }, (visitedNodesInOrder.length - 1) * Speed + 500);
   }
 
   function animateShortestPath(nodesInShortestPathOrder) {

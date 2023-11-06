@@ -20,7 +20,7 @@ export default function Node({
     className += " finish-node";
   }
   if (isVisited) {
-    className += " visited-node";
+    className += " visited-node animation-node";
   } else if (isVisited_1) {
     className += " visited-node-1";
   } else if (onCursor) {
