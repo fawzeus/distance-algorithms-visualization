@@ -57,7 +57,7 @@
 .path-node {
   background-color: yellow;
   border-radius: 0%;
-  animation: changePathColor 3s forwards;
+  animation: changePathColor 3s infinite;
 }
 .wall-node {
   background-color: rgb(0, 9, 53);
