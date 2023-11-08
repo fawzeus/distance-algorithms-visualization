@@ -5,7 +5,8 @@ import {
   dijkstra,
   getNodesInShortestPathOrder,
 } from "../../algorithms/dijkstra";
-import { bfs, getTargetPath } from "../../algorithms/bfs";
+import { dfs, getTargetPath } from "../../algorithms/dfs";
+
 const Grid = () => {
   const rows = 20;
   const columns = 50;
@@ -68,7 +69,7 @@ const Grid = () => {
     setIsVisualized(true);
     const startNode = grid[startRow][startColumn];
     const finishNode = grid[targetRow][targetColumn];
-    const visitedNodesInOrder = bfs(grid, startNode, finishNode);
+    const visitedNodesInOrder = dfs(grid, startNode, finishNode);
     const nodesInShortestPathOrder = getTargetPath(finishNode);
     //console.log(nodesInShortestPathOrder);
     animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
