@@ -1,28 +1,33 @@
 export function bfs(grid, startNode, targetNode) {
   let queue = [];
   //let allNodes = getallNodes(grid);
-  let previousNode = null;
-  let currentNode = null;
-  queue.push(startNode);
+  startNode.isVisited = true;
+  queue.push({ currentNode: startNode, previousNode: null });
   let searchPath = [];
   let i = 0;
   while (queue.length !== 0) {
     console.log(i++);
-    previousNode = currentNode;
-    currentNode = queue.shift();
+    let { currentNode, previousNode } = queue.shift();
+    if (currentNode.isWall === true) {
+      continue;
+    }
     searchPath.push(currentNode);
     currentNode.previousNode = previousNode;
     let neibors = getNeibors(currentNode, grid);
     //console.log(neibors);
     if (currentNode.type === 2) {
+      console.log(searchPath);
       return searchPath;
     }
     for (let i = 0; i < neibors.length; i++) {
       if (neibors[i].isVisited === false) {
         neibors[i].isVisited = true;
-        queue.push(neibors[i]);
+        queue.push({ currentNode: neibors[i], previousNode: currentNode });
       }
     }
+  }
+  if (queue.length === 0) {
+    return searchPath;
   }
 }
 
@@ -54,13 +59,3 @@ export function getTargetPath(targetNode) {
   }
   return path;
 }
-
-/*function getallNodes(grid) {
-  let allNodes = [];
-  for (const row of grid) {
-    for (const node of row) {
-      allNodes.push(node);
-    }
-  }
-  return allNodes;
-}*/

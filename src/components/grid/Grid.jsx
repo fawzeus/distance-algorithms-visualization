@@ -42,6 +42,9 @@ const Grid = () => {
   }
 
   function animateShortestPath(nodesInShortestPathOrder) {
+    if (nodesInShortestPathOrder.length === 1) {
+      return;
+    }
     for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
       setTimeout(() => {
         const node = nodesInShortestPathOrder[i];
