@@ -5,7 +5,14 @@ import {
   dijkstra,
   getNodesInShortestPathOrder,
 } from "../../algorithms/dijkstra";
-//import { dfs, getTargetPath } from "../../algorithms/dfs";
+import { dfs, getDfsTargetPath } from "../../algorithms/dfs";
+import { bfs, getBfsTargetPath } from "../../algorithms/bfs";
+
+const algorithmFunctions = {
+  1: [dijkstra, getNodesInShortestPathOrder],
+  2: [dfs, getDfsTargetPath],
+  3: [bfs, getBfsTargetPath],
+};
 
 const Grid = () => {
   const rows = 20;
@@ -20,6 +27,8 @@ const Grid = () => {
   const [addWallIsClicked, setAddwallIsClicked] = useState(false);
   const [mouseIsClicked, setMouseIsClicked] = useState(false);
   const [isVisualized, setIsVisualized] = useState(false);
+  const [algorithmSelector, setAlgorithmSelector] = useState(0);
+  //const [visualizeButtonText, setVisualizeButtonText] = useState("Visualize");
 
   function animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
     const Speed = 10;
@@ -57,6 +66,9 @@ const Grid = () => {
   }
 
   function handleVisualizeCkick() {
+    if (algorithmSelector === 0) {
+      return;
+    }
     if (
       startRow === null ||
       startColumn === null ||
@@ -67,10 +79,12 @@ const Grid = () => {
     }
     if (isVisualized) return;
     setIsVisualized(true);
+    const [algorithm, pathVisualizer] = algorithmFunctions[algorithmSelector];
+
     const startNode = grid[startRow][startColumn];
     const finishNode = grid[targetRow][targetColumn];
-    const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
-    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+    const visitedNodesInOrder = algorithm(grid, startNode, finishNode);
+    const nodesInShortestPathOrder = pathVisualizer(finishNode);
     //console.log(nodesInShortestPathOrder);
     animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
   }
@@ -192,6 +206,16 @@ const Grid = () => {
         >
           Clear Grid
         </button>
+        <select
+          className="algorithm-selector"
+          id="algorithmSelector"
+          onChange={(e) => setAlgorithmSelector(e.target.value)}
+        >
+          <option value="0">Select An Algorithm</option>
+          <option value="1">Dijkstra</option>
+          <option value="2">DFS</option>
+          <option value="3">BFS</option>
+        </select>
         <button
           className={
             "button add-wall" + (addWallIsClicked ? " active-btn" : "")
@@ -208,7 +232,7 @@ const Grid = () => {
             handleVisualizeCkick();
           }}
         >
-          visualize dijkstra
+          Visualize
         </button>
       </div>
       <div className="grid">

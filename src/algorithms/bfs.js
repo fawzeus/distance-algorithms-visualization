@@ -4,9 +4,8 @@ export function bfs(grid, startNode, targetNode) {
   startNode.isVisited = true;
   queue.push({ currentNode: startNode, previousNode: null });
   let searchPath = [];
-  let i = 0;
   while (queue.length !== 0) {
-    console.log(i++);
+    //console.log(i++);
     let { currentNode, previousNode } = queue.shift();
     if (currentNode.isWall === true) {
       continue;
@@ -16,7 +15,7 @@ export function bfs(grid, startNode, targetNode) {
     let neibors = getNeibors(currentNode, grid);
     //console.log(neibors);
     if (currentNode.type === 2) {
-      console.log(searchPath);
+      //console.log(searchPath);
       return searchPath;
     }
     for (let i = 0; i < neibors.length; i++) {
@@ -50,7 +49,7 @@ function getNeibors(node, grid) {
   return neibors;
 }
 
-export function getTargetPath(targetNode) {
+export function getBfsTargetPath(targetNode) {
   let path = [];
   let currentNode = targetNode;
   while (currentNode != null) {
