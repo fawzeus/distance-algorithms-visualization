@@ -5,7 +5,7 @@ import {
   dijkstra,
   getNodesInShortestPathOrder,
 } from "../../algorithms/dijkstra";
-import { dfs, getTargetPath } from "../../algorithms/dfs";
+//import { dfs, getTargetPath } from "../../algorithms/dfs";
 
 const Grid = () => {
   const rows = 20;
@@ -69,8 +69,8 @@ const Grid = () => {
     setIsVisualized(true);
     const startNode = grid[startRow][startColumn];
     const finishNode = grid[targetRow][targetColumn];
-    const visitedNodesInOrder = dfs(grid, startNode, finishNode);
-    const nodesInShortestPathOrder = getTargetPath(finishNode);
+    const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
+    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
     //console.log(nodesInShortestPathOrder);
     animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
   }
@@ -122,7 +122,7 @@ const Grid = () => {
       setTargetColumn(c);
       copy[r][c].type = 2;
     } else if (addWallIsClicked) {
-      copy[r][c].isWall = true;
+      copy[r][c].isWall = !copy[r][c].isWall;
     }
     setGrid(copy);
   }

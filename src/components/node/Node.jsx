@@ -13,6 +13,7 @@ export default function Node({
   onDoubleClick,
 }) {
   let className = "node-root";
+  let containerClassName = "square-container";
   if (type === 1) {
     className += " start-node";
   } else if (type === 2) {
@@ -20,14 +21,14 @@ export default function Node({
   }
   if (isVisited) {
     className += " visited-node animation-node";
-  } else if (onCursor) {
-    className += " cursor-node";
   }
   if (isOnPath) {
     className += " path-node";
+    containerClassName += " no-outline-container";
   }
   if (isAWall) {
     className += " wall-node";
+    containerClassName += " no-outline-container";
   }
   let value = "";
   if (type === 1) {
@@ -36,15 +37,19 @@ export default function Node({
     value = "?";
   }
   return (
-    <div
-      className={className}
-      onClick={handleClick}
-      onMouseDown={() => onMouseDown()}
-      onMouseEnter={() => onMouseEnter()}
-      onMouseUp={() => onMouseUp()}
-      onDoubleClick={() => onDoubleClick()}
-    >
-      {value}
-    </div>
+    <>
+      <div className={containerClassName}>
+        <div
+          className={className}
+          onClick={handleClick}
+          onMouseDown={() => onMouseDown()}
+          onMouseEnter={() => onMouseEnter()}
+          onMouseUp={() => onMouseUp()}
+          onDoubleClick={() => onDoubleClick()}
+        >
+          {value}
+        </div>
+      </div>
+    </>
   );
 }
