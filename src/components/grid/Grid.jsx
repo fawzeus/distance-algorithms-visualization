@@ -7,11 +7,12 @@ import {
 } from "../../algorithms/dijkstra";
 import { dfs, getDfsTargetPath } from "../../algorithms/dfs";
 import { bfs, getBfsTargetPath } from "../../algorithms/bfs";
-
+import { aStar, getAStarTargetPath } from "../../algorithms/aStar";
 const algorithmFunctions = {
   1: [dijkstra, getNodesInShortestPathOrder],
   2: [dfs, getDfsTargetPath],
   3: [bfs, getBfsTargetPath],
+  4: [aStar, getAStarTargetPath],
 };
 
 const Grid = () => {
@@ -215,6 +216,7 @@ const Grid = () => {
           <option value="1">Dijkstra</option>
           <option value="2">DFS</option>
           <option value="3">BFS</option>
+          <option value="4">A*</option>
         </select>
         <button
           className={
