@@ -8,6 +8,7 @@ import {
 import { dfs, getDfsTargetPath } from "../../algorithms/dfs";
 import { bfs, getBfsTargetPath } from "../../algorithms/bfs";
 import { aStar, getAStarTargetPath } from "../../algorithms/aStar";
+import { createRandomMaze } from "../../algorithms/randomMaze";
 const algorithmFunctions = {
   1: [dijkstra, getNodesInShortestPathOrder],
   2: [dfs, getDfsTargetPath],
@@ -51,7 +52,15 @@ const Grid = () => {
       animateShortestPath(nodesInShortestPathOrder);
     }, (visitedNodesInOrder.length - 1) * Speed + 500);
   }
-
+  function createMaze(value) {
+    if (value === "0") {
+      clearGrid();
+    } else if (value === "1") {
+      let copy = copyGrid(grid, rows, columns);
+      createRandomMaze(copy, rows, columns);
+      setGrid(copy);
+    }
+  }
   function animateShortestPath(nodesInShortestPathOrder) {
     if (nodesInShortestPathOrder.length === 1) {
       return;
@@ -199,6 +208,14 @@ const Grid = () => {
         >
           select Target
         </button>
+        <select
+          className="maze-selector"
+          id="mazeSelector"
+          onChange={(e) => createMaze(e.target.value)}
+        >
+          <option value="0">Select a maze</option>
+          <option value="1">Random</option>
+        </select>
         <button
           className="button clear-grid"
           onClick={() => {
