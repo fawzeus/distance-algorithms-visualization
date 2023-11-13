@@ -54,9 +54,8 @@ const Grid = () => {
     }, (visitedNodesInOrder.length - 1) * Speed + 500);
   }
   function createMaze(value) {
-    if (value === "0") {
-      clearGrid();
-    } else if (value === "1") {
+    clearGrid();
+    if (value === "1") {
       let copy = copyGrid(grid, rows, columns);
       createRandomMaze(copy, rows, columns);
       setGrid(copy);
