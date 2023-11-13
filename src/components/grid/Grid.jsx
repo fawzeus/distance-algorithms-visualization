@@ -9,6 +9,7 @@ import { dfs, getDfsTargetPath } from "../../algorithms/dfs";
 import { bfs, getBfsTargetPath } from "../../algorithms/bfs";
 import { aStar, getAStarTargetPath } from "../../algorithms/aStar";
 import { createRandomMaze } from "../../algorithms/randomMaze";
+import { CreateRecursiveMaze } from "../../algorithms/recursiveMaze";
 const algorithmFunctions = {
   1: [dijkstra, getNodesInShortestPathOrder],
   2: [dfs, getDfsTargetPath],
@@ -58,6 +59,10 @@ const Grid = () => {
     } else if (value === "1") {
       let copy = copyGrid(grid, rows, columns);
       createRandomMaze(copy, rows, columns);
+      setGrid(copy);
+    } else if (value === "2") {
+      let copy = copyGrid(grid, rows, columns);
+      CreateRecursiveMaze(copy, rows, columns);
       setGrid(copy);
     }
   }
@@ -214,7 +219,8 @@ const Grid = () => {
           onChange={(e) => createMaze(e.target.value)}
         >
           <option value="0">Select a maze</option>
-          <option value="1">Random</option>
+          <option value="1">Random Maze</option>
+          <option value="2">Recursive Maze</option>
         </select>
         <button
           className="button clear-grid"
