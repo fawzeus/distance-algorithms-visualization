@@ -8,6 +8,10 @@ import {
 import { dfs, getDfsTargetPath } from "../../algorithms/dfs";
 import { bfs, getBfsTargetPath } from "../../algorithms/bfs";
 import { aStar, getAStarTargetPath } from "../../algorithms/aStar";
+import {
+  bidirectionalSearch,
+  getBidrirectionalTargetPath,
+} from "../../algorithms/bidirectionalSearch";
 import { createRandomMaze } from "../../algorithms/randomMaze";
 import { CreateRecursiveMaze } from "../../algorithms/recursiveMaze";
 const algorithmFunctions = {
@@ -15,6 +19,7 @@ const algorithmFunctions = {
   2: [dfs, getDfsTargetPath],
   3: [bfs, getBfsTargetPath],
   4: [aStar, getAStarTargetPath],
+  5: [bidirectionalSearch, getBidrirectionalTargetPath],
 };
 
 const Grid = () => {
@@ -241,6 +246,7 @@ const Grid = () => {
           <option value="2">DFS</option>
           <option value="3">BFS</option>
           <option value="4">A*</option>
+          <option value="5">Bidorectional Search</option>
         </select>
         <button
           className={
