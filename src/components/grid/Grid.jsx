@@ -340,6 +340,7 @@ function createNode(row, col) {
     markVisited: false,
     isOnPath: false,
     onCursor: false,
+    visitedBy: 0,
   };
 }
 

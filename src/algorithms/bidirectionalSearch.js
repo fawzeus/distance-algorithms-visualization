@@ -1,6 +1,10 @@
 export function bidirectionalSearch(grid, startNode, targetNode) {
   let forwardQueue = [{ node: startNode, previousNode: null }];
   let backwardQueue = [{ node: targetNode, previousNode: null }];
+  startNode.isVisited = true;
+  targetNode.isVisited = true;
+  startNode.visitedBy = 1;
+  targetNode.visitedBy = 2;
   let visitedInOrder = [];
   let currentForwardNode = null;
   let currentBackwardNode = null;
@@ -17,6 +21,7 @@ export function bidirectionalSearch(grid, startNode, targetNode) {
     for (let i = 0; i < forwardNodeNeigbors.length; i++) {
       if (forwardNodeNeigbors[i].isVisited === false) {
         forwardNodeNeigbors[i].isVisited = true;
+        forwardNodeNeigbors[i].visitedBy = 1;
         forwardQueue.push({
           node: forwardNodeNeigbors[i],
           previousNode: currentForwardNode.node,
@@ -26,6 +31,7 @@ export function bidirectionalSearch(grid, startNode, targetNode) {
     for (let i = 0; i < backwardNodeNeigbors.length; i++) {
       if (backwardNodeNeigbors[i].isVisited === false) {
         backwardNodeNeigbors[i].isVisited = true;
+        backwardNodeNeigbors[i].visitedBy = 2;
         backwardQueue.push({
           node: backwardNodeNeigbors[i],
           previousNode: currentBackwardNode.node,
@@ -36,9 +42,9 @@ export function bidirectionalSearch(grid, startNode, targetNode) {
       let nextNode = currentBackwardNode.previousNode;
       let previousNode = currentForwardNode.node;
       let currentNode = currentBackwardNode.node;
-      return visitedInOrder;
+      //return visitedInOrder;
       let i = 0;
-      while (nextNode != null) {
+      while (currentNode != null) {
         console.log(i++);
         currentNode.previousNode = previousNode;
         previousNode = currentNode;
@@ -73,7 +79,7 @@ function getNeibors(node, grid) {
 
 export function getBidrirectionalTargetPath(targetNode) {
   let path = [];
-  return path;
+  //return path;
   let currentNode = targetNode;
   while (currentNode != null) {
     path.unshift(currentNode);
