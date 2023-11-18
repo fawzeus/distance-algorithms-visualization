@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/distance-algorithms-visualization/static/css/main.9eb72a20.css",
+    "main.js": "/distance-algorithms-visualization/static/js/main.b68d7045.js",
+    "static/js/787.09ad4ccb.chunk.js": "/distance-algorithms-visualization/static/js/787.09ad4ccb.chunk.js",
+    "index.html": "/distance-algorithms-visualization/index.html",
+    "main.9eb72a20.css.map": "/distance-algorithms-visualization/static/css/main.9eb72a20.css.map",
+    "main.b68d7045.js.map": "/distance-algorithms-visualization/static/js/main.b68d7045.js.map",
+    "787.09ad4ccb.chunk.js.map": "/distance-algorithms-visualization/static/js/787.09ad4ccb.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9eb72a20.css",
+    "static/js/main.b68d7045.js"
+  ]
+}
