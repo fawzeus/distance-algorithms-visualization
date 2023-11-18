@@ -41,23 +41,36 @@ export function bidirectionalSearch(grid, startNode, targetNode) {
     let forwardFinished = forwardFoundPath(forwardNodeNeigbors);
     let backwardFinished = backWardFoundPath(backwardNodeNeigbors);
     if (forwardFinished != null || backwardFinished != null) {
+      /////////////
+      while (forwardQueue.length > 0) {
+        let currentForwardNode1 = forwardQueue.shift();
+        currentForwardNode1.node.previousNode =
+          currentForwardNode1.previousNode;
+      }
+      while (backwardQueue.length > 0) {
+        let currentBackwardNode1 = backwardQueue.shift();
+        currentBackwardNode1.node.previousNode =
+          currentBackwardNode1.previousNode;
+      }
+      /////////////
+
       let nextNode = null;
       let previousNode = null;
       let currentNode = null;
       if (forwardFinished) {
+        visitedInOrder.push(forwardFinished);
         nextNode = forwardFinished.previousNode;
         previousNode = currentForwardNode.node;
         currentNode = forwardFinished;
       } else {
+        visitedInOrder.push(backwardFinished);
+
         nextNode = currentBackwardNode.previousNode;
         previousNode = backwardFinished;
         currentNode = currentBackwardNode.node;
       }
-      //return visitedInOrder;
-      let i = 0;
+
       while (currentNode != null) {
-        console.log(i++);
-        console.log(currentNode);
         currentNode.previousNode = previousNode;
         previousNode = currentNode;
         currentNode = nextNode;
@@ -66,7 +79,6 @@ export function bidirectionalSearch(grid, startNode, targetNode) {
       break;
     }
   }
-  console.log("here");
   return visitedInOrder;
 }
 
@@ -100,14 +112,6 @@ export function getBidrirectionalTargetPath(targetNode) {
   return path;
 }
 
-function isNeigbors(node1, node2) {
-  return (
-    (Math.abs(node1.col - node2.col) === 1 &&
-      Math.abs(node1.row - node2.row) === 0) ||
-    (Math.abs(node1.col - node2.col) === 0 &&
-      Math.abs(node1.row - node2.row) === 1)
-  );
-}
 function forwardFoundPath(neigbors) {
   for (let neigbor of neigbors) {
     if (neigbor.visitedBy === 2) {
