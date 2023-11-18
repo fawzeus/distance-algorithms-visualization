@@ -38,18 +38,30 @@ export function bidirectionalSearch(grid, startNode, targetNode) {
         });
       }
     }
-    if (isNeigbors(currentForwardNode.node, currentBackwardNode.node)) {
-      let nextNode = currentBackwardNode.previousNode;
-      let previousNode = currentForwardNode.node;
-      let currentNode = currentBackwardNode.node;
+    let forwardFinished = forwardFoundPath(forwardNodeNeigbors);
+    let backwardFinished = backWardFoundPath(backwardNodeNeigbors);
+    if (forwardFinished != null || backwardFinished != null) {
+      let nextNode = null;
+      let previousNode = null;
+      let currentNode = null;
+      if (forwardFinished) {
+        nextNode = forwardFinished.previousNode;
+        previousNode = currentForwardNode.node;
+        currentNode = forwardFinished;
+      } else {
+        nextNode = currentBackwardNode.previousNode;
+        previousNode = backwardFinished;
+        currentNode = currentBackwardNode.node;
+      }
       //return visitedInOrder;
       let i = 0;
       while (currentNode != null) {
         console.log(i++);
+        console.log(currentNode);
         currentNode.previousNode = previousNode;
         previousNode = currentNode;
         currentNode = nextNode;
-        nextNode = currentNode.previousNode;
+        if (currentNode != null) nextNode = currentNode.previousNode;
       }
       break;
     }
@@ -62,16 +74,16 @@ function getNeibors(node, grid) {
   const r = node.row;
   const c = node.col;
   let neibors = [];
-  if (r > 0) {
+  if (r > 0 && grid[r - 1][c].isWall === false) {
     neibors.push(grid[r - 1][c]);
   }
-  if (r < grid.length - 1) {
+  if (r < grid.length - 1 && grid[r + 1][c].isWall === false) {
     neibors.push(grid[r + 1][c]);
   }
-  if (c > 0) {
+  if (c > 0 && grid[r][c - 1].isWall === false) {
     neibors.push(grid[r][c - 1]);
   }
-  if (c < grid[0].length - 1) {
+  if (c < grid[0].length - 1 && grid[r][c + 1].isWall === false) {
     neibors.push(grid[r][c + 1]);
   }
   return neibors;
@@ -95,4 +107,20 @@ function isNeigbors(node1, node2) {
     (Math.abs(node1.col - node2.col) === 0 &&
       Math.abs(node1.row - node2.row) === 1)
   );
+}
+function forwardFoundPath(neigbors) {
+  for (let neigbor of neigbors) {
+    if (neigbor.visitedBy === 2) {
+      return neigbor;
+    }
+  }
+  return null;
+}
+function backWardFoundPath(neigbors) {
+  for (let neigbor of neigbors) {
+    if (neigbor.visitedBy === 1) {
+      return neigbor;
+    }
+  }
+  return null;
 }
