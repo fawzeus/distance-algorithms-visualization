@@ -161,6 +161,12 @@ const Grid = () => {
     }
     setGrid(copy);
   }
+  function handleRestartButton() {
+    let copy = copyGrid(grid, rows, columns);
+    clearPath(copy, rows, columns);
+    setGrid(copy);
+    setIsVisualized(false);
+  }
 
   function handleMouseUp() {
     setMouseIsClicked(false);
@@ -235,6 +241,14 @@ const Grid = () => {
           }}
         >
           Clear Grid
+        </button>
+        <button
+          className="button restar"
+          onClick={() => {
+            handleRestartButton();
+          }}
+        >
+          Restart
         </button>
         <select
           className="algorithm-selector"
@@ -342,6 +356,20 @@ function createNode(row, col) {
     onCursor: false,
     visitedBy: 0,
   };
+}
+
+function clearPath(grid, rows, columns) {
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < columns; j++) {
+      grid[i][j].isVisited = false;
+      grid[i][j].distance = Infinity;
+      grid[i][j].previousNode = null;
+      grid[i][j].markVisited = false;
+      grid[i][j].isOnPath = false;
+      grid[i][j].onCursor = false;
+      grid[i][j].visitedBy = 0;
+    }
+  }
 }
 
 export default Grid;
