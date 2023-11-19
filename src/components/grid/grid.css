@@ -32,3 +32,41 @@
   background-color: rgb(165, 9, 193);
   color: black;
 }
+
+.results-container {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-around;
+}
+
+@keyframes show-results {
+  0% {
+    display: none;
+  }
+  25% {
+    display: block;
+    color: rgb(255, 163, 60);
+    opacity: 0.25;
+  }
+  50% {
+    display: block;
+    color: rgb(255, 163, 60);
+    opacity: 0.5;
+  }
+  75% {
+    display: block;
+    color: rgb(255, 163, 60);
+    opacity: 0.75;
+  }
+
+  100% {
+    opacity: 1;
+    color: rgb(255, 163, 60);
+  }
+}
+
+.result {
+  font-weight: bolder;
+  font-size: larger;
+  animation: show-results 3s forwards;
+}

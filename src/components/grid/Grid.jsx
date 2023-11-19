@@ -36,9 +36,16 @@ const Grid = () => {
   const [mouseIsClicked, setMouseIsClicked] = useState(false);
   const [isVisualized, setIsVisualized] = useState(false);
   const [algorithmSelector, setAlgorithmSelector] = useState(0);
+  const [elapsedTime, setElapsedTime] = useState("");
+  const [visitedNodes, setVisitedNodes] = useState("");
+  const [pathLength, setPathLength] = useState("");
   //const [visualizeButtonText, setVisualizeButtonText] = useState("Visualize");
 
-  function animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
+  function animateDijkstra(
+    visitedNodesInOrder,
+    nodesInShortestPathOrder,
+    elapsedTime
+  ) {
     const Speed = 10;
     for (let i = 0; i < visitedNodesInOrder.length; i++) {
       let row = visitedNodesInOrder[i].row;
@@ -57,6 +64,11 @@ const Grid = () => {
     setTimeout(() => {
       animateShortestPath(nodesInShortestPathOrder);
     }, (visitedNodesInOrder.length - 1) * Speed + 500);
+    setTimeout(() => {
+      setElapsedTime(`Elapsed Time :${elapsedTime} ms`);
+      setVisitedNodes(`Number of Visited Nodes :${visitedNodesInOrder.length}`);
+      setPathLength(`Path Length : ${nodesInShortestPathOrder.length}`);
+    }, visitedNodesInOrder.length * Speed + 500);
   }
   function createMaze(value) {
     if (value === "0") {
@@ -104,10 +116,13 @@ const Grid = () => {
 
     const startNode = grid[startRow][startColumn];
     const finishNode = grid[targetRow][targetColumn];
+    const startTime = performance.now();
     const visitedNodesInOrder = algorithm(grid, startNode, finishNode);
+    const endTime = performance.now();
+    const elapsedTime = endTime - startTime;
+
     const nodesInShortestPathOrder = pathVisualizer(finishNode);
-    //console.log(nodesInShortestPathOrder);
-    animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
+    animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder, elapsedTime);
   }
 
   function handleSelectStartClick() {
@@ -166,6 +181,7 @@ const Grid = () => {
     clearPath(copy, rows, columns);
     setGrid(copy);
     setIsVisualized(false);
+    clearResults();
   }
 
   function handleMouseUp() {
@@ -199,6 +215,13 @@ const Grid = () => {
     setStartRow(null);
     setTargetColumn(null);
     setTargetRow(null);
+    clearResults();
+  }
+
+  function clearResults() {
+    setElapsedTime("");
+    setVisitedNodes("");
+    setPathLength("");
   }
 
   return (
@@ -311,6 +334,11 @@ const Grid = () => {
             ))}
           </div>
         ))}
+      </div>
+      <div className="results-container">
+        <div className="result elapsed-time">{elapsedTime}</div>
+        <div className="result visited-nodes">{visitedNodes}</div>
+        <div className="result path-length">{pathLength}</div>
       </div>
     </div>
   );
