@@ -71,11 +71,15 @@ const Grid = () => {
     setTimeout(() => {
       animateShortestPath(nodesInShortestPathOrder);
     }, (visitedNodesInOrder.length - 1) * Speed + 500);
-    setTimeout(() => {
-      setElapsedTime(`Elapsed Time :${elapsedTime} ms`);
-      setVisitedNodes(`Number of Visited Nodes :${visitedNodesInOrder.length}`);
-      setPathLength(`Path Length : ${nodesInShortestPathOrder.length}`);
-    }, visitedNodesInOrder.length * Speed + 500);
+    if (nodesInShortestPathOrder.length > 1) {
+      setTimeout(() => {
+        setElapsedTime(`Elapsed Time :${elapsedTime} ms`);
+        setVisitedNodes(
+          `Number of Visited Nodes :${visitedNodesInOrder.length}`
+        );
+        setPathLength(`Path Length : ${nodesInShortestPathOrder.length}`);
+      }, visitedNodesInOrder.length * Speed + 500);
+    }
   }
   function createMaze(value) {
     if (value === "0") {
