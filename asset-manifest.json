@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/distance-algorithms-visualization/static/css/main.489c92fa.css",
-    "main.js": "/distance-algorithms-visualization/static/js/main.b6843f36.js",
+    "main.js": "/distance-algorithms-visualization/static/js/main.1b694a94.js",
     "static/js/787.09ad4ccb.chunk.js": "/distance-algorithms-visualization/static/js/787.09ad4ccb.chunk.js",
     "index.html": "/distance-algorithms-visualization/index.html",
     "main.489c92fa.css.map": "/distance-algorithms-visualization/static/css/main.489c92fa.css.map",
-    "main.b6843f36.js.map": "/distance-algorithms-visualization/static/js/main.b6843f36.js.map",
+    "main.1b694a94.js.map": "/distance-algorithms-visualization/static/js/main.1b694a94.js.map",
     "787.09ad4ccb.chunk.js.map": "/distance-algorithms-visualization/static/js/787.09ad4ccb.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.489c92fa.css",
-    "static/js/main.b6843f36.js"
+    "static/js/main.1b694a94.js"
   ]
 }
