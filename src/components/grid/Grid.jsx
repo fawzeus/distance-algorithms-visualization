@@ -22,10 +22,13 @@ const algorithmFunctions = {
   5: [bidirectionalSearch, getBidrirectionalTargetPath],
 };
 
+const GridSizes = {
+  0: { nodeSize: "25px", rows: 20, columns: 50 },
+  1: { nodeSize: "20px", rows: 30, columns: 70 },
+  2: { nodeSize: "15px", rows: 40, columns: 90 },
+};
+
 const Grid = () => {
-  const rows = 20;
-  const columns = 50;
-  const [grid, setGrid] = useState(initGrid(rows, columns));
   const [selectStartIsClicked, setSelectStartIsClicked] = useState(false);
   const [startRow, setStartRow] = useState(null);
   const [startColumn, setStartColumn] = useState(null);
@@ -39,7 +42,11 @@ const Grid = () => {
   const [elapsedTime, setElapsedTime] = useState("");
   const [visitedNodes, setVisitedNodes] = useState("");
   const [pathLength, setPathLength] = useState("");
+  const [gridSize, setGridSize] = useState(0);
   //const [visualizeButtonText, setVisualizeButtonText] = useState("Visualize");
+  const [rows, setRows] = useState(20);
+  const [columns, setColumns] = useState(50);
+  const [grid, setGrid] = useState(initGrid(rows, columns));
 
   function animateDijkstra(
     visitedNodesInOrder,
@@ -223,7 +230,12 @@ const Grid = () => {
     setVisitedNodes("");
     setPathLength("");
   }
-
+  function HandleGridResize(value) {
+    setGridSize(value);
+    setRows(GridSizes[value].rows);
+    setColumns(GridSizes[value].columns);
+    setGrid(initGrid(GridSizes[value].rows, GridSizes[value].columns));
+  }
   return (
     <div className="grid-container">
       <div className="topbar">
@@ -303,6 +315,17 @@ const Grid = () => {
         >
           Visualize
         </button>
+        <select
+          className="grid-resizer"
+          id="resize-grid"
+          onChange={(e) => {
+            HandleGridResize(e.target.value);
+          }}
+        >
+          <option value="0">Small Grid</option>
+          <option value="1">Medium Grid</option>
+          <option value="2">Big Grid</option>
+        </select>
       </div>
       <div className="grid">
         {grid.map((row, rowIndex) => (
@@ -315,6 +338,7 @@ const Grid = () => {
                 isOnPath={node.isOnPath}
                 isAWall={node.isWall}
                 onCursor={node.onCursor}
+                nodeSize={GridSizes[gridSize].nodeSize}
                 onMouseUp={() => {
                   handleMouseUp();
                 }}

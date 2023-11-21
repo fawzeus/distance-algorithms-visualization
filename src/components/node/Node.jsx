@@ -1,5 +1,4 @@
 import "./node.css";
-
 export default function Node({
   type,
   isVisited,
@@ -11,7 +10,9 @@ export default function Node({
   onMouseUp,
   onMouseEnter,
   onDoubleClick,
+  nodeSize,
 }) {
+  //const [testValue, setTestValue] = useState(nodeSize);
   let className = "node-root";
   let containerClassName = "square-container";
   if (type === 1) {
@@ -38,7 +39,7 @@ export default function Node({
   }
   return (
     <>
-      <div className={containerClassName}>
+      <div className={containerClassName} style={{ "--test": nodeSize }}>
         <div
           className={className}
           onClick={handleClick}
