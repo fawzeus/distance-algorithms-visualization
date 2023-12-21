@@ -136,6 +136,22 @@ const Grid = () => {
     animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder, elapsedTime);
   }
 
+  function runAll() {
+    console.log(algorithmFunctions);
+    for (let i = 1; i <= 5; i++) {
+      //console.log("working on algorithm " + i);
+
+      //handleVisualizeCkick();
+      setTimeout(() => {
+        setAlgorithmSelector(i);
+        handleVisualizeCkick();
+      }, 5000 * i);
+      //console.log(algorithmFunctions[i]);
+      handleRestartButton();
+    }
+    console.log("finished");
+  }
+
   function handleSelectStartClick() {
     if (isVisualized) return;
     setSelectTargetIsClicked(false);
@@ -318,6 +334,14 @@ const Grid = () => {
           }}
         >
           Visualize
+        </button>
+        <button
+          className="button runAll-btn"
+          onClick={() => {
+            runAll();
+          }}
+        >
+          Run all
         </button>
         <select
           className="grid-resizer"
